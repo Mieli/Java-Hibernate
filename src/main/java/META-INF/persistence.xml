@@ -11,6 +11,7 @@
 
    		<!-- entidade mapeada -->
    		<class>model.Usuario</class> 
+   		<class>model.Telefone</class>
 
    <properties>
 	    <!-- dados da conexao -->

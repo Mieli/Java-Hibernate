@@ -2,13 +2,17 @@ package model;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 
@@ -32,6 +36,11 @@ public class Usuario {
 	private String login;
 	
 	private String senha;
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	private List<Telefone> telefones;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -84,6 +93,16 @@ public class Usuario {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override

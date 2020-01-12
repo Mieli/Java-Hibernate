@@ -4,10 +4,12 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 
 import dao.DaoGenerico;
+import model.Telefone;
 import model.Usuario;
 
 public class TesteHibernate {
@@ -218,6 +220,49 @@ public class TesteHibernate {
 		for (Usuario usuario : lista) {
 			System.out.println(usuario);
 		}	
+	}
+	
+	@Test
+	public void testeCadastroTelefoneUsuario() {
+		
+		Random random = new Random();
+		DaoGenerico dao = new DaoGenerico();
+		
+		for(int i = 1; i <= 49; i++) {
+		
+			String numero = "(" + (random.nextInt(100)+i) +") 9"+ random.nextInt(1000) +"-"+ random.nextInt(1000);
+			Integer id_usuario = random.nextInt(10);
+			
+			Usuario usuario = (Usuario) dao.pesquisarPorId(Usuario.class, id_usuario.longValue());
+			
+			Telefone fone = new Telefone();
+			fone.setNumero(numero);
+			
+			if(i%2 == 0)
+				fone.setTipo("Celular");
+			else
+				fone.setTipo("Residencial");
+			fone.setUsuario(usuario);
+			
+			dao.salvar(fone);
+			
+			System.out.println("Telefone cadastrado com Sucesso");
+		}		
+	}
+	
+	@Test
+	public void testePesquisarTelefonePorUsuario() {
+		DaoGenerico<Usuario> dao = new DaoGenerico<Usuario>();
+		
+		Usuario usuario = dao.pesquisarPorId(Usuario.class, 6L);
+		
+		for (Telefone telefone : usuario.getTelefones()) {
+			
+			System.out.println(telefone);
+			
+		}
+		
+		
 	}
 
 
