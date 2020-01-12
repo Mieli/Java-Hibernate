@@ -192,6 +192,33 @@ public class TesteHibernate {
 		
 		System.out.println(" Média => "+mediaDosIds);		
 	}
+	
+	
+	
+	@Test
+	public void testeQueryNamedBuscarTodos() {
+		
+		DaoGenerico<Usuario> dao = new DaoGenerico<Usuario>();
+		List<Usuario> lista = dao.getEntityManager().createNamedQuery("Usuario.findAll").getResultList();
+		
+		for (Usuario usuario : lista) {
+			System.out.println(usuario);
+		}	
+	}
+	
+
+	@Test
+	public void testeQueryNamedBuscarPorNome() {
+		
+		DaoGenerico<Usuario> dao = new DaoGenerico<Usuario>();
+		List<Usuario> lista = dao.getEntityManager().createNamedQuery("Usuario.findByName")
+													.setParameter("nome", "Antonio 3 dos Santos")
+													.getResultList();
+													
+		for (Usuario usuario : lista) {
+			System.out.println(usuario);
+		}	
+	}
 
 
 }
