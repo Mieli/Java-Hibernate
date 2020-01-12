@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -71,7 +70,10 @@ public class DaoGenerico<E> {
 		E e = entityManager.find(entidade, id);
 
 		return e;
-
+	}
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
 }
